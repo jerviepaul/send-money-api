@@ -20,7 +20,7 @@ cp .env.example .env
 - Update the ```bash.env``` file and set your DB_USERNAME AND DB_PASSWORD values then save.
 - Generate app key.
 ```bash
-php artisan key:generate</code>
+php artisan key:generate
 ```
 - Run migrations. If asked to create the database, enter YES.
 ```bash
