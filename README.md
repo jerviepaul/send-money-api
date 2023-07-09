@@ -17,8 +17,11 @@ composer install
 ```bash
 cp .env.example .env
 ```
-- Update the ```bash.env``` file and set your DB_DATABASE, DB_USERNAME AND DB_PASSWORD values then save.
-- Generate app key. php artisan key:generate</code>
+- Update the ```bash.env``` file and set your DB_USERNAME AND DB_PASSWORD values then save.
+- Generate app key.
+```bash
+php artisan key:generate</code>
+```
 - Run migrations. If asked to create the database, enter YES.
 ```bash
 php artisan migrate
