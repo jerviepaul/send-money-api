@@ -185,4 +185,15 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /**
+     * Author: Jervie Paul Doon
+     */
+    'author' => env('APP_AUTHOR', 'LARAVEL'),
+
+    /**
+     * 
+     * App Version: 1.0.0
+     */
+    'version' => env('APP_VERSION', '1.0.0'),
+
 ];

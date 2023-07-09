@@ -24,6 +24,15 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::get('/', function () {
+    return response()->json(
+        [
+            'AppName'=> config('app.name'),
+            'Author' => config('app.author'),
+            'AppVersion' => config('app.version')
+        ]
+        );
+});
 Route::get('unauthorized', [RegisterController::class, 'unauthorized'])->name('unauthorized');
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
