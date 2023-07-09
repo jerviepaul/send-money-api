@@ -39,7 +39,12 @@ class UserController extends BaseController
      */
     public function show(string $id)
     {
-        //
+        $userData = User::where('id', $id)
+                ->with('account')
+                ->with('transactions')
+                ->get();
+                
+        return $this->sendResponse($userData, 'User successfully retrieved.');
     }
 
     /**

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\API\BankController;
 use App\Http\Controllers\API\ProviderController;
-use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\UserTransactionController;
 use Illuminate\Http\Request;
@@ -33,14 +33,14 @@ Route::get('/', function () {
         ]
         );
 });
-Route::get('unauthorized', [RegisterController::class, 'unauthorized'])->name('unauthorized');
-Route::post('register', [RegisterController::class, 'register']);
-Route::post('login', [RegisterController::class, 'login']);
+Route::get('unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group( function () {
 
     // Logout
-    Route::post('logout', [RegisterController::class, 'logout']);
+    Route::post('logout', [AuthController::class, 'logout']);
 
     // Users
     Route::resource('/users', UserController::class);

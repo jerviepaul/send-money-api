@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
-class RegisterController extends BaseController
+class AuthController extends BaseController
 {
     /**
      * Register api
