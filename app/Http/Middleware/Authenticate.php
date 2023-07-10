@@ -13,8 +13,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        Log::error($request);
-        Log::error($request->header('Authorization'));
         return $request->expectsJson() ? null : route('unauthorized');
     }
 }
