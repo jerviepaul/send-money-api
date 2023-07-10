@@ -1,5 +1,9 @@
 <p align="center"><h1>Send Money API</h1></p>
 
+#### PHP Version: 8.2.7
+#### Laravel Version: 10
+#### Composer Version: 2.5.8
+
 ## Setup Instruction
 - Clone repo.
 ```bash
