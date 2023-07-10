@@ -95,7 +95,8 @@ class AuthController extends BaseController
      * 
      * @return \Illuminate\Http\Response
      */
-    public function logout(Request $request) {
+    public function logout(Request $request) 
+    {
         $user = Auth::user();
         SuccessfulLogout::dispatch($user);
         $request->user('api')->token()->revoke();

@@ -51,3 +51,12 @@ php artisan passport:client --personal
 php artisan serve
 ```
 - Access the local instance at http://localhost:8000/api through a browser or API testing tools like [Postman](https://www.postman.com/downloads/) or [Insomnia](https://insomnia.rest/download).
+
+## Database migrations and seed for Sqlite used for Test
+
+  ```bash
+  php artisan migrate --database=sqlite
+  ```
+  ```bash
+  php artisan db:seed --database=sqlite
+  ```

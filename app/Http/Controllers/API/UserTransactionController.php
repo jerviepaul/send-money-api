@@ -14,12 +14,19 @@ use Illuminate\Support\Facades\Validator;
 
 class UserTransactionController extends BaseController
 {
+
+    const TYPE_SEND = 'Send';
+    const TYPE_RECEIVE = 'Receive';
+    const CHANNEL_USER = 'User';
+    const CHANNEL_BANK = 'Bank';
+    
     /**
      * User Transfer api
      * 
      * @return \Illuminate\Http\Response
      */
-    public function userTransfer(Request $request, UserTransaction $userTransaction) {
+    public function userTransfer(Request $request, UserTransaction $userTransaction) 
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
             'amount' => 'required|decimal:2'
@@ -29,7 +36,7 @@ class UserTransactionController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $userTransaction->channel = 'User';
+        $userTransaction->channel = self::CHANNEL_USER;
 
         // Deduct from this user
         if ($this->deductFrom($request->amount, $userTransaction)) {
@@ -51,7 +58,8 @@ class UserTransactionController extends BaseController
      * 
      * @return \Illuminate\Http\Response
      */
-    public function bankTransfer(Request $request, UserTransaction $userTransaction) {
+    public function bankTransfer(Request $request, UserTransaction $userTransaction) 
+    {
         $validator = Validator::make($request->all(), [
             'provider_id' => 'required',
             'bank_id' => 'required',
@@ -63,7 +71,7 @@ class UserTransactionController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $userTransaction->channel = 'Bank';
+        $userTransaction->channel = self::CHANNEL_BANK;
 
         // Deduct from this user
         if ($this->deductFrom($request->amount, $userTransaction)) {
@@ -80,7 +88,8 @@ class UserTransactionController extends BaseController
         return $this->sendError('Transfer unsuccessful.', 'Transfer error.');
     }
 
-    private function deductFrom(float $amount, UserTransaction $userTransaction) : bool {
+    private function deductFrom(float $amount, UserTransaction $userTransaction) : bool 
+    {
         $user = Auth::user();
         $userAcct = Account::where('user_id', $user->id)->first();
 
@@ -111,14 +120,15 @@ class UserTransactionController extends BaseController
         $userTransaction->previous_balance = $prevBal;
         $userTransaction->current_balance = $currBal;
         $userTransaction->transaction_amount = $transaction_amount;
-        $userTransaction->type = "Send";
+        $userTransaction->type = self::TYPE_SEND;
 
         SuccessfulUserTransfer::dispatch($userTransaction);
 
         return true;
     }
 
-    private function transferToUser(Request $request, UserTransaction $userTransaction) : bool {
+    private function transferToUser(Request $request, UserTransaction $userTransaction) : bool 
+    {
         $user = User::where('email', $request->email)->first();
         $userAcct = Account::where('user_id', $user->id)->first();
         
@@ -145,14 +155,15 @@ class UserTransactionController extends BaseController
         $userTransaction->previous_balance = $prevBal;
         $userTransaction->current_balance = $currBal;
         $userTransaction->transaction_amount = $transaction_amount;
-        $userTransaction->type = "Receive";
+        $userTransaction->type = self::TYPE_RECEIVE;
 
         SuccessfulUserTransfer::dispatch($userTransaction);
 
         return true;
     }
 
-    private function transferToBank(Request $request, UserTransaction $userTransaction) : bool {
+    private function transferToBank(Request $request, UserTransaction $userTransaction) : bool 
+    {
         $userAcct = Account::where('acct_number', $request->acct_number)->first();
         
         if (is_null($userAcct)) {
@@ -182,7 +193,7 @@ class UserTransactionController extends BaseController
         $userTransaction->previous_balance = $prevBal;
         $userTransaction->current_balance = $currBal;
         $userTransaction->transaction_amount = $transaction_amount;
-        $userTransaction->type = "Receive";
+        $userTransaction->type = self::TYPE_RECEIVE;
 
         SuccessfulUserTransfer::dispatch($userTransaction);
 

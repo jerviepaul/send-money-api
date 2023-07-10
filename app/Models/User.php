@@ -50,11 +50,14 @@ class User extends Authenticatable implements Auditable
         'password' => 'hashed',
     ];
 
-    public function transactions() : HasMany {
-        return $this->hasMany(UserTransaction::class)->orderBy('created_at', 'desc');
+    public function transactions() : HasMany 
+    {
+        return $this->hasMany(UserTransaction::class)
+                ->orderBy('created_at', 'desc');
     }
 
-    public function account() : HasOne {
+    public function account() : HasOne 
+    {
         return $this->hasOne(Account::class);
     }
 }

@@ -16,7 +16,10 @@ class ProviderController extends BaseController
     {
         $providers = APIProvider::all();
 
-        return $this->sendResponse(ResourcesProvider::collection($providers), 'Providers retrieved successfully.');
+        return $this->sendResponse(
+            ResourcesProvider::collection($providers), 
+            'Providers retrieved successfully.'
+        );
     }
 
     /**
