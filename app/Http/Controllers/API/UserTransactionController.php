@@ -151,7 +151,7 @@ class UserTransactionController extends BaseController
             return false;
         }
 
-        $userTransaction->user_id = $user->user_id;
+        $userTransaction->user_id = $user->id;
         $userTransaction->previous_balance = $prevBal;
         $userTransaction->current_balance = $currBal;
         $userTransaction->transaction_amount = $transaction_amount;
