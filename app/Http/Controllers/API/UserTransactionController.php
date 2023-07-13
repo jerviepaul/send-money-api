@@ -170,10 +170,6 @@ class UserTransactionController extends BaseController
             return false;
         }
 
-        if ($request->amount > $userAcct->acct_balance) {
-            return false;
-        }
-
         $prevBal = $userAcct->acct_balance;
         $currBal = ($prevBal + $request->amount);
         $transaction_amount = $request->amount;
