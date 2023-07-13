@@ -16,8 +16,10 @@ class AcctBalanceSeeder extends Seeder
     {
         $accounts = Account::all();
         foreach ($accounts as $account) {
-            $account->acct_balance = rand(1000, 100000);
-            $account->save();
+            if ($account->acct_balance == 0) {
+                $account->acct_balance = rand(1000, 100000);
+                $account->save();
+            }
         }
     }
 }
